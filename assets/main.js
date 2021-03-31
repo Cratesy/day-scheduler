@@ -6,20 +6,24 @@ const renderCurrentDate = () => {
 
 const renderCalendarEvents = () => {
   //get from local
-  const plannerEvents = localStorage.getItem("plannerEvents");
+  const plannerEvents = JSON.parse(localStorage.getItem("plannerEvents"));
 
   if (plannerEvents !== null) {
     const currentHour = moment().hour();
     // const currentHour = 11;
     const timeBlocks = $(".container .row");
     const callback = function () {
+      const textarea = $(this).find("textarea");
       const timeBlockTime = Number.parseInt($(this).data("time"), 10);
       if (timeBlockTime === currentHour) {
-        $(this).find("textarea").removeClass("past").addClass("present");
+        textarea.removeClass("past").addClass("present");
       }
       if (timeBlockTime > currentHour) {
-        $(this).find("textarea").removeClass("past").addClass("future");
+        textarea.removeClass("past").addClass("future");
       }
+
+      const plannedEvent = plannerEvents[timeBlockTime];
+      console.log(plannedEvent, timeBlockTime);
     };
 
     timeBlocks.each(callback);
