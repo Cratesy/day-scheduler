@@ -53,7 +53,7 @@ const onClick = function (event) {
       [key]: value,
     };
 
-    localStorage.setItem("plannerEvents", JSON.stringify({ newObject }));
+    localStorage.setItem("plannerEvents", JSON.stringify(newObject));
   }
 };
 
